@@ -1,25 +1,34 @@
 package pro.sky.collectionshw25;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeService implements EmployeeInterface {
-    private final List<Employee> employees = new ArrayList<>(List.of(
+    private final Map<String, Employee> employees = new HashMap(Map.of(
+            "Кочетков",
             new Employee("Кочетков", "Александр"),
+            "Пименова",
             new Employee("Пименова", "Нина"),
+            "Родин",
             new Employee("Родин", "Артемий"),
+            "Колесова",
             new Employee("Колесова", "Ева"),
-            new Employee("Черепанова", "Алиса"),
+            "Черепанова",
+            new Employee("Черепанова", "Алина"),
+            "Елизарова",
             new Employee("Елизарова", "Эмилия"),
+            "Иванова",
             new Employee("Иванова", "Алиса"),
+            "Сергеева",
             new Employee("Сергеева", "Марьяна"),
+            "Попов",
             new Employee("Попов", "Даниил"),
+            "Носова",
             new Employee("Носова", "Екатерина")
 
     ));
@@ -27,18 +36,18 @@ public class EmployeeService implements EmployeeInterface {
     @Override
     public Employee addEmployee(String lastName, String firstName) {
         Employee employee = new Employee(lastName, firstName);
-        if (employees.contains(employee)) {
+        if (employees.containsKey(employee.getLastName())) {
             throw new EmployeeAlreadyAddedException();
         }
-        employees.add(employee);
+        employees.put(employee.getLastName(), employee);
         return employee;
     }
 
     @Override
     public Employee removeEmployee(String lastName, String firstName) {
         Employee employee = new Employee(lastName, firstName);
-        if (employees.contains(employee)) {
-            employees.remove(employee);
+        if (employees.containsKey(employee.getLastName())) {
+            employees.remove(employee.getLastName(), employee);
             return employee;
         }
         throw new EmployeeNotFoundException();
@@ -47,7 +56,7 @@ public class EmployeeService implements EmployeeInterface {
     @Override
     public Employee findEmployee(String lastName, String firstName) {
         Employee employee = new Employee(lastName, firstName);
-        if (employees.contains(employee)) {
+        if (employees.containsKey(employee.getLastName())) {
             return employee;
         }
         throw new EmployeeNotFoundException();
@@ -55,7 +64,7 @@ public class EmployeeService implements EmployeeInterface {
 
     @Override
     public Collection<Employee> findAll() {
-        return Collections.unmodifiableList(employees);
+        return Collections.unmodifiableCollection(employees.values());
     }
 
 
