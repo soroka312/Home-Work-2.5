@@ -1,7 +1,6 @@
 package pro.sky.collectionshw25;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,54 +8,34 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class EmployeeService implements EmployeeInterface {
+public class EmployeeService {
     private final List<Employee> employees = new ArrayList<>(List.of(
-            new Employee("Кочетков", "Александр"),
-            new Employee("Пименова", "Нина"),
-            new Employee("Родин", "Артемий"),
-            new Employee("Колесова", "Ева"),
-            new Employee("Черепанова", "Алиса"),
-            new Employee("Елизарова", "Эмилия"),
-            new Employee("Иванова", "Алиса"),
-            new Employee("Сергеева", "Марьяна"),
-            new Employee("Попов", "Даниил"),
-            new Employee("Носова", "Екатерина")
 
-    ));
+            new Employee("Кочетков", "Александр", 5, 257532),
 
-    @Override
-    public Employee addEmployee(String lastName, String firstName) {
-        Employee employee = new Employee(lastName, firstName);
-        if (employees.contains(employee)) {
-            throw new EmployeeAlreadyAddedException();
-        }
-        employees.add(employee);
-        return employee;
-    }
+            new Employee("Пименова", "Нина", 2, 308235),
 
-    @Override
-    public Employee removeEmployee(String lastName, String firstName) {
-        Employee employee = new Employee(lastName, firstName);
-        if (employees.contains(employee)) {
-            employees.remove(employee);
-            return employee;
-        }
-        throw new EmployeeNotFoundException();
-    }
+            new Employee("Родин", "Артемий", 3, 280932),
 
-    @Override
-    public Employee findEmployee(String lastName, String firstName) {
-        Employee employee = new Employee(lastName, firstName);
-        if (employees.contains(employee)) {
-            return employee;
-        }
-        throw new EmployeeNotFoundException();
-    }
+            new Employee("Колесова", "Ева", 2, 207493),
 
-    @Override
+            new Employee("Черепанова", "Алина", 4, 358742),
+
+            new Employee("Елизарова", "Эмилия", 2, 246432),
+
+            new Employee("Иванова", "Алиса", 1, 269573),
+
+            new Employee("Сергеева", "Марьяна", 5, 329473),
+
+            new Employee("Попов", "Даниил", 3, 350283),
+
+            new Employee("Носова", "Екатерина", 1, 397562)));
+
+
     public Collection<Employee> findAll() {
         return Collections.unmodifiableList(employees);
     }
+
 
 
 }
