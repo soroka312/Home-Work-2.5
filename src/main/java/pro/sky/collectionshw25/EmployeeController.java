@@ -12,30 +12,29 @@ import java.util.Map;
 @RequestMapping("/departments")
 public class EmployeeController {
 
-    private final EmployeeService employeeService;
+    private final DepartmentService departmentService;
 
-    public EmployeeController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
+    public EmployeeController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
     }
-
 
     @GetMapping(path = "/max-salary")
     public Employee maxSalary(@RequestParam int department) {
-        return employeeService.maximumSalaryDepartment(department);
+        return departmentService.maximumSalaryDepartment(department);
     }
 
     @GetMapping(path = "/min-salary")
     public Employee minSalary(@RequestParam int department) {
-        return employeeService.minimumSalaryDepartment(department);
+        return departmentService.minimumSalaryDepartment(department);
     }
 
     @GetMapping(value = "/all", params = "department")
     public List<Employee> all(@RequestParam int department) {
-        return employeeService.allEmployeesOfTheDepartment(department);
+        return departmentService.allEmployeesOfTheDepartment(department);
     }
 
     @GetMapping(path = "/all")
     public Map<Integer, List<Employee>> getAll() {
-        return employeeService.employeesGroupedByDep();
+        return departmentService.employeesGroupedByDep();
     }
 }

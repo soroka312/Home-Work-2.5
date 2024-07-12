@@ -3,10 +3,9 @@ package pro.sky.collectionshw25;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
@@ -33,32 +32,10 @@ public class EmployeeService {
             new Employee("Носова", "Екатерина", 1, 397562)));
 
 
-    public Employee minimumSalaryDepartment(int department) {
-        return employees.stream()
-                .filter(e -> e.getDepartment() == department)
-                .min(Comparator.comparingDouble(Employee::getSalary))
-                .orElse(null);
+    public Collection<Employee> findAll() {
+        return Collections.unmodifiableList(employees);
     }
 
-
-    public Employee maximumSalaryDepartment(int department) {
-        return employees.stream()
-                .filter(e -> e.getDepartment() == department)
-                .max(Comparator.comparingDouble(Employee::getSalary))
-                .orElse(null);
-    }
-
-
-    public List<Employee> allEmployeesOfTheDepartment(int department) {
-        return employees.stream()
-                .filter(e -> e.getDepartment() == department)
-                .toList();
-    }
-
-    public Map<Integer, List<Employee>> employeesGroupedByDep() {
-        return employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment));
-    }
 
 
 }
