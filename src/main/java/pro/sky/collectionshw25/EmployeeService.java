@@ -1,5 +1,6 @@
 package pro.sky.collectionshw25;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,6 +35,17 @@ public class EmployeeService {
 
     public Collection<Employee> findAll() {
         return Collections.unmodifiableList(employees);
+    }
+
+    public Employee addEmployee(String lastName, String firstName, int department, double salary) {
+        Employee employee = new Employee(lastName, firstName, department, salary);
+        if (!StringUtils.isAlpha(firstName) || !StringUtils.isAlpha(lastName)) {
+            throw new InvalidDataException();
+        }
+        employee.setFirstName(StringUtils.capitalize(firstName.toLowerCase()));
+        employee.setLastName(StringUtils.capitalize(lastName.toLowerCase()));
+        employees.add(employee);
+        return employee;
     }
 
 
