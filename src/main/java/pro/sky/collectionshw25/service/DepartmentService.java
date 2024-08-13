@@ -1,6 +1,7 @@
-package pro.sky.collectionshw25;
+package pro.sky.collectionshw25.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.collectionshw25.Employee;
 
 import java.util.Comparator;
 import java.util.List;
@@ -31,6 +32,12 @@ public class DepartmentService {
                 .orElse(null);
     }
 
+    public double amountOfSalariesDepartment(int department) {
+        return employeeService.findAll().stream()
+                .filter(e -> e.getDepartment() == department)
+                .mapToDouble(Employee::getSalary)
+                .sum();
+    }
 
     public List<Employee> allEmployeesOfTheDepartment(int department) {
         return employeeService.findAll().stream()

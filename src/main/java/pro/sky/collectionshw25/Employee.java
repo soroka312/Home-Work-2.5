@@ -7,12 +7,21 @@ public class Employee {
     private String lastName;
     private int department;
     private double salary;
+    private final long id;
+
+    private static long counter = 0;
 
     public Employee(String firstName, String lastName, int department, double salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
         this.salary = salary;
+        this.id = counter++;
+
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getFirstName() {
